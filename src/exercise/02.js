@@ -30,7 +30,7 @@ function asyncReducer(state, action) {
 function useAsync(asyncCallback, initialState) {
   const [state, dispatch] = React.useReducer(asyncReducer, {
     status: 'idle',
-    pokemon: null,
+    data: null,
     error: null,
     ...initialState,
   })
