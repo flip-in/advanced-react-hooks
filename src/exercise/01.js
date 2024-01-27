@@ -3,8 +3,12 @@
 
 import * as React from 'react'
 
-const countReducer = (state, newState) => {
-  return {...state, ...newState}
+const countReducer = (state, action) => {
+  // if (typeof action === 'function') {
+  //   return {...state, ...action(state)}
+  // }
+  // refactor above into one-liner
+  return {...state, ...(typeof action === 'function' ? action(state) : action)}
 }
 
 function Counter({initialCount = 0, step = 1}) {
@@ -19,7 +23,8 @@ function Counter({initialCount = 0, step = 1}) {
   // changes to the next two lines of code! Remember:
   // The 1st argument is called "state" - the current value of count
   // The 2nd argument is called "newState" - the value passed to setCount
-  const increment = () => setState({count: count + step})
+  const increment = () =>
+    setState(currentState => ({count: currentState.count + step}))
   return <button onClick={increment}>{count}</button>
 }
 
